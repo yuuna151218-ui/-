@@ -1,0 +1,287 @@
+image1791725153250.png 
+
+<!DOCTYPE html> 
+
+<html lang="ja"> 
+
+<head> 
+
+<meta charset="UTF-8"> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+<title>マイ・カードチェッカー</title> 
+
+<style> 
+
+/* 🎨 CSS：見た目を整えるエリア / 
+
+body { 
+
+font-family: sans-serif; 
+
+text-align: center; 
+
+background-color: #f9f9f9; 
+
+padding: 20px; 
+
+} 
+
+.counter { 
+
+font-size: 1.5rem; 
+
+margin-bottom: 20px; 
+
+font-weight: bold; 
+
+} 
+
+image1791725153261.png 
+
+.card-container { 
+
+display: flex; 
+
+justify-content: center; 
+
+gap: 15px; 
+
+flex-wrap: wrap; 
+
+} 
+
+/ カードの見た目 / 
+
+.card { 
+
+width: 120px; 
+
+height: 170px; 
+
+background-color: #e0e0e0; 
+
+border: 3px solid #ccc; 
+
+border-radius: 10px; 
+
+display: flex; 
+
+flex-direction: column; 
+
+justify-content: center; 
+
+align-items: center; 
+
+cursor: pointer; 
+
+user-select: none; 
+
+transition: all 0.2s; 
+
+image1791725153266.png 
+
+/ 未所持のときは少し半透明＆白黒っぽくする / 
+
+opacity: 0.5; 
+
+filter: grayscale(100%); 
+
+} 
+
+/ 👑 所持（チェックON）しているときの見た目 / 
+
+.card.owned { 
+
+opacity: 1; 
+
+filter: grayscale(0%); 
+
+border-color: #ff4081; / アイカツ風ピンク */ 
+
+background-color: #ffe4e1; 
+
+box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3); 
+
+} 
+
+.card-name { 
+
+font-size: 0.8rem; 
+
+font-weight: bold; 
+
+padding: 5px; 
+
+} 
+
+.badge { 
+
+background-color: #ff4081; 
+
+color: white; 
+
+ 
+
+padding: 2px 6px; 
+
+border-radius: 4px; 
+
+font-size: 0.7rem; 
+
+margin-top: 5px; 
+
+} 
+
+</style> 
+
+</head> 
+
+<body> 
+
+ 
+
+<h1>✨ マイ・カードチェッカー ✨</h1> 
+
+ 
+
+<!-- 🔢 所持率を表示する場所 --> 
+
+<div class="counter"> 
+
+所持： <span id="owned-count">0</span> / <span id="total-count">0</span> 種 
+
+(<span id="percentage">0</span>%) 
+
+</div> 
+
+ 
+
+<!-- 📦 カードが並ぶ場所 --> 
+
+<div class="card-container" id="card- 
+
+ 
+
+container"></div> 
+
+ 
+
+<script> 
+
+// 💾 1. カードのデータ（データベース） 
+
+const cardData = [ 
+
+{ id: "001", name: "星宮いちごワンピ", rarity: "PR" }, 
+
+{ id: "002", name: "霧矢あおいリボン", rarity: "PR" }, 
+
+{ id: "003", name: "紫吹蘭ブーツ", rarity: "R" }, 
+
+{ id: "004", name: "有栖川おとめリボン", rarity: "N" } 
+
+ ]; 
+
+ 
+
+const container = document.getElementById("card-container"); 
+
+const ownedCountEl = document.getElementById("owned-count"); 
+
+const totalCountEl = document.getElementById("total-count"); 
+
+const percentageEl = document.getElementById("percentage"); 
+
+ 
+
+ 
+
+// 全体の数を画面にセット 
+
+totalCountEl.textContent = cardData.length; 
+
+ 
+
+// 🛠️ 2. データを元に、画面にカードを自動生成する 
+
+cardData.forEach(card => { 
+
+const cardEl = document.createElement("div"); 
+
+cardEl.classList.add("card"); 
+
+ 
+
+// カードの中身の文字を作成（本来はここに<img>タグで画像を設定します） 
+
+cardEl.innerHTML = &lt;span class="badge"&gt;${card.rarity}</span> 
+
+<p class="card-name">${card.name}&lt;/p&gt;; 
+
+ 
+
+// 🖱️ 3. カードがクリックされたときの動き 
+
+cardEl.addEventListener("click", () => { 
+
+// 「owned」というクラス（見た目）をつけたり外したりする 
+
+ 
+
+cardEl.classList.toggle("owned"); 
+
+// 所持率を再計算する 
+
+styleUpdate(); 
+
+}); 
+
+ 
+
+container.appendChild(cardEl); 
+
+}); 
+
+ 
+
+// 🧮 4. 所持率を計算して画面を更新する関数 
+
+function styleUpdate() { 
+
+const ownedCards = document.querySelectorAll(".card.owned").length; 
+
+const totalCards = cardData.length; 
+
+const percent = Math.round((ownedCards / totalCards) * 100); 
+
+ 
+
+ownedCountEl.textContent = ownedCards; 
+
+percentageEl.textContent = percent; 
+
+} 
+
+ 
+
+</script> 
+
+</body> 
+
+</html> 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
